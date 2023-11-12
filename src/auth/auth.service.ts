@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
+import { LoginUserDto } from '../user/dto/login-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -20,4 +21,14 @@ export class AuthService {
   }
 
   //로그인 비즈니스 로직
+  async loginUser(loginUserDto: LoginUserDto) {
+    const user = await this.userService.findUserByEmail(loginUserDto.email);
+    if (user.password !== loginUserDto.password) {
+      throw new HttpException(
+        'password do not matched',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    return user;
+  }
 }
