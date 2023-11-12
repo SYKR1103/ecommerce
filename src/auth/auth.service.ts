@@ -47,12 +47,10 @@ export class AuthService {
   public generateJwtAccessToken(userId: string) {
     const payload: TokenPayloadInterface = { userId };
     const token = this.jwtService.sign(payload, {
-      secret: 'asdfsadfsadfsaddfsdadf',
-      expiresIn: '10m',
-      // secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
-      // expiresIn: `${this.configService.get(
-      //   'JWT_ACCESS_TOKEN_EXPIRATION_TIME',
-      // )}`,
+      secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
+      expiresIn: `${this.configService.get(
+        'JWT_ACCESS_TOKEN_EXPIRATION_TIME',
+      )}`,
     });
     return token;
   }
