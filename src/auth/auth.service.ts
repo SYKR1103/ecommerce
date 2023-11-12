@@ -2,10 +2,17 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { LoginUserDto } from '../user/dto/login-user.dto';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
+import { TokenPayloadInterface } from './tokenPayload.interface';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly configService: ConfigService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   //회원가입 비지니스 로직
   async createUser(createUserDto: CreateUserDto) {
@@ -34,5 +41,19 @@ export class AuthService {
     //   );
     //}
     return user;
+  }
+
+  //토큰 생성 로직
+  public generateJwtAccessToken(userId: string) {
+    const payload: TokenPayloadInterface = { userId };
+    const token = this.jwtService.sign(payload, {
+      secret: 'asdfsadfsadfsaddfsdadf',
+      expiresIn: '10m',
+      // secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
+      // expiresIn: `${this.configService.get(
+      //   'JWT_ACCESS_TOKEN_EXPIRATION_TIME',
+      // )}`,
+    });
+    return token;
   }
 }
