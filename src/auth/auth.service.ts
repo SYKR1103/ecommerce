@@ -23,12 +23,16 @@ export class AuthService {
   //로그인 비즈니스 로직
   async loginUser(loginUserDto: LoginUserDto) {
     const user = await this.userService.findUserByEmail(loginUserDto.email);
-    if (user.password !== loginUserDto.password) {
-      throw new HttpException(
-        'password do not matched',
-        HttpStatus.BAD_REQUEST,
-      );
+    const isPasswordMatched = await user.checkPassword(loginUserDto.password);
+    if (!isPasswordMatched) {
+      throw new HttpException('password do not match', HttpStatus.BAD_REQUEST);
     }
+    // if (user.password !== loginUserDto.password) {
+    //   throw new HttpException(
+    //     'password do not matched',
+    //     HttpStatus.BAD_REQUEST,
+    //   );
+    //}
     return user;
   }
 }
