@@ -1,8 +1,9 @@
 import { BaseEntity } from 'src/common/base.entity';
-import { Entity, Column, BeforeInsert } from 'typeorm';
+import { Entity, Column, BeforeInsert, OneToMany } from 'typeorm';
 import { Role } from './role.enum';
 import * as bcrypt from 'bcryptjs';
 import { InternalServerErrorException } from '@nestjs/common';
+import { Post } from 'src/post/entities/post.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -43,4 +44,10 @@ export class User extends BaseEntity {
       throw new InternalServerErrorException();
     }
   }
+
+  @OneToMany(()=>Post, (post:Post)=> post.author)
+  public posts? : Post[]
+
+
+
 }
