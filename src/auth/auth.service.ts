@@ -4,7 +4,7 @@ import { CreateUserDto } from '../user/dto/create-user.dto';
 import { LoginUserDto } from '../user/dto/login-user.dto';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { TokenPayloadInterface } from './tokenPayload.interface';
+import { TokenPayloadInterface } from './interfaces/tokenPayload.interface';
 
 @Injectable()
 export class AuthService {
