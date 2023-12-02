@@ -1,11 +1,15 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Inject } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { LoginUserDto } from '../user/dto/login-user.dto';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { TokenPayloadInterface } from './interfaces/tokenPayload.interface';
 import { EmailService } from 'src/email/email.service';
+import { CACHE_MANAGER } from '@nestjs/cache-manager'
+import { Cache } from 'cache-manager';
+
+
 
 @Injectable()
 export class AuthService {
@@ -13,7 +17,10 @@ export class AuthService {
     private readonly userService: UserService,
     private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
-    private readonly emailService : EmailService
+    private readonly emailService : EmailService,
+    @Inject(CACHE_MANAGER) private cacheManager : Cache
+
+
   ) {}
 
   //회원가입 비지니스 로직
@@ -58,17 +65,40 @@ export class AuthService {
   }
 
 
-  async sendEmailTest(email:string) {
+  async sendEmailVerification(email:string) {
+
+    const generateNumber = this.generateOTP() 
+    
+    //번호 캐시에 저장 
+    await this.cacheManager.set(email, generateNumber)
+
 
     await this.emailService.sendMail({
       to: email,
-      subject : 'test',
-      text : 'testtest',
+      subject : 'sungyeon_email verification',
+      text : `this confirmation number is as follows. ${generateNumber}`
 
     })
 
     return "success"
   }
 
+  async checkedGenerateNumber(email:string, code:string) {
+    const number = await this.cacheManager.get(email)
+    if (number !=code) throw new HttpException('not matched', HttpStatus.BAD_REQUEST)
+    await this.cacheManager.del(email)
+    return true
+  }
+
+
+
+  //랜덤 번호 자동 생성
+  generateOTP() {
+    let OTP = '';
+    for (let i=1;i<=6; i++) {
+      OTP += Math.floor(Math.random()*10)
+    }
+    return OTP;
+  }
 
 }

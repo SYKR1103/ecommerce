@@ -37,11 +37,22 @@ export class AuthController {
     return req.user;
   }
 
-
-  @Post("/email")
-  async sendEmailTest(@Body("email") email:string) {
-    return await this.authService.sendEmailTest(email)
+  // 이메일 전송 API
+  @Post("/email/send")
+  async sendEmailVerification(@Body("email") email:string) {
+    return await this.authService.sendEmailVerification(email)
   }
+
+
+  // 이메일 인증번호 확인 API
+  @Post("/email/check")
+  async checkEmailVerification(@Body("email") email:string, @Body("code") code:string) {
+    //return await this.authService.sendEmailTest(email)
+    return await this.authService.checkedGenerateNumber(email, code)
+
+  }
+
+
 
 
 

@@ -20,6 +20,12 @@ import * as Joi from '@hapi/joi';
         EMAIL_USER : Joi.string().required(),
         EMAIL_PASSWORD : Joi.string().required(),
 
+        REDIS_HOST :Joi.string().required(),
+        REDIS_PORT :Joi.number().required(),
+        REDIS_USER :Joi.string().required(),
+        REDIS_PASSWORD :Joi.string().required(), 
+        REDIS_TTL : Joi.number().required(),
+
       }),
     }),
   ],
