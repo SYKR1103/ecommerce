@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import * as Joi from '@hapi/joi';
 import { AppConfigModule } from './config/config.module';
 import { PostModule } from './post/post.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { PostModule } from './post/post.module';
     UserModule,
     AuthModule,
     PostModule,
+    EmailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

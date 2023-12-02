@@ -38,7 +38,10 @@ export class AuthController {
   }
 
 
-
+  @Post("/email")
+  async sendEmailTest(@Body("email") email:string) {
+    return await this.authService.sendEmailTest(email)
+  }
 
 
 

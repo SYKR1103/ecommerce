@@ -5,6 +5,7 @@ import { LoginUserDto } from '../user/dto/login-user.dto';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { TokenPayloadInterface } from './interfaces/tokenPayload.interface';
+import { EmailService } from 'src/email/email.service';
 
 @Injectable()
 export class AuthService {
@@ -12,6 +13,7 @@ export class AuthService {
     private readonly userService: UserService,
     private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
+    private readonly emailService : EmailService
   ) {}
 
   //회원가입 비지니스 로직
@@ -54,4 +56,19 @@ export class AuthService {
     });
     return token;
   }
+
+
+  async sendEmailTest(email:string) {
+
+    await this.emailService.sendMail({
+      to: email,
+      subject : 'test',
+      text : 'testtest',
+
+    })
+
+    return "success"
+  }
+
+
 }
