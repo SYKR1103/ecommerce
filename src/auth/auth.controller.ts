@@ -63,7 +63,9 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
   async googleLoginCallback(@Req() req:RequestWithUser) : Promise<any> {
-    return req.user
+    const {user} = req
+    const token = await this.authService.generateJwtAccessToken(user.id)
+    return {user, token}
   }
 
 
