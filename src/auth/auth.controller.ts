@@ -9,6 +9,7 @@ import { JwtAuthGuard } from './guards/jwt-auth-guard';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
 import { KakaoAuthGuard } from './guards/kakao-auth.guard';
 import { NaverAuthGuard } from './guards/naver-auth.guard';
+import { MetaAuthGuard } from './guards/meta_auth.guard';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -101,6 +102,25 @@ export class AuthController {
     const token = await this.authService.generateJwtAccessToken(user.id)
     return {user, token}
   }
+
+  //메타 로그인
+  @Get('meta')
+  @UseGuards(MetaAuthGuard)
+  async metaLogin() : Promise<any> {
+    return HttpStatus.OK
+  }
+
+  @Get('meta/callback')
+  @UseGuards(MetaAuthGuard)
+  async metaLoginCallback(@Req() req:RequestWithUser) : Promise<any> {
+    const {user} = req
+    //return user
+    const token = await this.authService.generateJwtAccessToken(user.id)
+    return {user, token}
+  }
+
+
+
 
 
 }

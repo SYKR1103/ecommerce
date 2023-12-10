@@ -39,6 +39,12 @@ import * as Joi from '@hapi/joi';
         NAVER_AUTH_CALLBACK_URL :Joi.string().required(),
 
 
+        META_AUTH_CLIENTID:Joi.string().required(),
+        META_AUTH_CLIENT_SECRET :Joi.string().required(),
+        META_AUTH_CALLBACK_URL :Joi.string().required(),
+
+
+
       }),
     }),
   ],

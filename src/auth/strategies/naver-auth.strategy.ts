@@ -7,10 +7,6 @@ import { CreateUserDto } from "src/user/dto/create-user.dto";
 import { Provider } from "src/user/entities/provider.enum";
 import { UserService } from "src/user/user.service";
 
-
-
-
-
 @Injectable()
 
 export class NaverAuthStrategy extends PassportStrategy(
@@ -27,11 +23,8 @@ export class NaverAuthStrategy extends PassportStrategy(
                 clientID: configService.get('NAVER_AUTH_CLIENTID'),
                 clientSecret : configService.get('NAVER_AUTH_CLIENT_SECRET'),
                 callbackURL : configService.get('NAVER_AUTH_CALLBACK_URL'),
-
-
             })
         }
-
 
         async validate(
             accessToken : string,
@@ -40,8 +33,6 @@ export class NaverAuthStrategy extends PassportStrategy(
             done:VerifyCallback
 
         ) : Promise<any> {
-            
-
             const {provider} = profile
             const {email, nickname, profile_image} = profile._json
 
