@@ -6,6 +6,7 @@ import { InternalServerErrorException } from '@nestjs/common';
 import { Post } from 'src/post/entities/post.entity';
 import { Provider } from './provider.enum';
 import * as gravartar from 'gravatar'
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User extends BaseEntity {
@@ -13,7 +14,9 @@ export class User extends BaseEntity {
   public nickname: string;
 
   @Column({nullable:true})
+  @Exclude()
   public password?: string;
+
 
   @Column({ unique: true })
   public email: string;
