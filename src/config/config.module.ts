@@ -26,6 +26,10 @@ import * as Joi from '@hapi/joi';
         REDIS_PASSWORD :Joi.string().required(), 
         REDIS_TTL : Joi.number().required(),
 
+        GOOGLE_AUTH_CLIENTID :Joi.string().required(),
+        GOOGLE_AUTH_CLIENT_SECRET :Joi.string().required(),
+        GOOGLE_AUTH_CALLBACK_URL :Joi.string().required(),
+
       }),
     }),
   ],

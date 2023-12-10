@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Req ,Get} from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Req ,Get, HttpStatus} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { LoginUserDto } from '../user/dto/login-user.dto';
@@ -6,6 +6,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { RequestWithUser } from './interfaces/requestWithUser';
 import { JwtAuthGuard } from './guards/jwt-auth-guard';
+import { GoogleAuthGuard } from './guards/google-auth.guard';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -52,8 +53,18 @@ export class AuthController {
 
   }
 
+  //구글 로그인
+  @Get('google')
+  @UseGuards(GoogleAuthGuard)
+  async googleLogin() : Promise<any> {
+    return HttpStatus.OK
+  }
 
-
+  @Get('google/callback')
+  @UseGuards(GoogleAuthGuard)
+  async googleLoginCallback(@Req() req:RequestWithUser) : Promise<any> {
+    return req.user
+  }
 
 
 }
