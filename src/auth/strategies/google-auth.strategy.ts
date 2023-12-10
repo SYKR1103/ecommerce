@@ -4,6 +4,7 @@ import { Strategy, VerifyCallback } from "passport-google-oauth2";
 import { AuthService } from "../auth.service";
 import { UserService } from "src/user/user.service";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { Provider } from "src/user/entities/provider.enum";
 
 
 
@@ -12,7 +13,7 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 @Injectable()
 export class GoogleAuthStrategy extends PassportStrategy(
     Strategy,
-    "google"
+    Provider.GOOGLE
     ) {
         constructor(
             private readonly configService : ConfigService,
@@ -56,7 +57,7 @@ export class GoogleAuthStrategy extends PassportStrategy(
                     
                 }
 
-                
+
 
 
                 done(null,user)

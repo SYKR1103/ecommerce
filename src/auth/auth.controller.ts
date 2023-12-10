@@ -7,6 +7,8 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { RequestWithUser } from './interfaces/requestWithUser';
 import { JwtAuthGuard } from './guards/jwt-auth-guard';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
+import { KakaoAuthGuard } from './guards/kakao-auth.guard';
+import { NaverAuthGuard } from './guards/naver-auth.guard';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -64,6 +66,38 @@ export class AuthController {
   @UseGuards(GoogleAuthGuard)
   async googleLoginCallback(@Req() req:RequestWithUser) : Promise<any> {
     const {user} = req
+    const token = await this.authService.generateJwtAccessToken(user.id)
+    return {user, token}
+  }
+
+  //카카오 로그인
+  @Get('kakao')
+  @UseGuards(KakaoAuthGuard)
+  async kakaoLogin() : Promise<any> {
+    return HttpStatus.OK
+  }
+
+  @Get('kakao/callback')
+  @UseGuards(KakaoAuthGuard)
+  async kakaoLoginCallback(@Req() req:RequestWithUser) : Promise<any> {
+    const {user} = req
+    return user
+    //const token = await this.authService.generateJwtAccessToken(user.id)
+    //return {user, token}
+  }
+
+  //네이버 로그인
+  @Get('naver')
+  @UseGuards(NaverAuthGuard)
+  async naverLogin() : Promise<any> {
+    return HttpStatus.OK
+  }
+
+  @Get('naver/callback')
+  @UseGuards(NaverAuthGuard)
+  async naverLoginCallback(@Req() req:RequestWithUser) : Promise<any> {
+    const {user} = req
+    //return user
     const token = await this.authService.generateJwtAccessToken(user.id)
     return {user, token}
   }

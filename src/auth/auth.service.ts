@@ -68,7 +68,7 @@ export class AuthService {
     return token;
   }
 
-
+  //회원가입하기전에 보내는 것들
   async sendEmailVerification(email:string) {
 
     const generateNumber = this.generateOTP() 

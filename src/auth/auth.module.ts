@@ -8,10 +8,12 @@ import { LocalAuthStrategy } from './strategies/local-auth.strategy';
 import { JwtAuthStrategy } from './strategies/jwt-auth-strategy';
 import { EmailModule } from 'src/email/email.module';
 import { GoogleAuthStrategy } from './strategies/google-auth.strategy';
+import { KakaoAuthStrategy } from './strategies/kakao-auth.strategy';
+import { NaverAuthStrategy } from './strategies/naver-auth.strategy';
 
 @Module({
   imports: [ConfigModule, JwtModule.register({}), UserModule, EmailModule],
   controllers: [AuthController],
-  providers: [AuthService, LocalAuthStrategy, JwtAuthStrategy, GoogleAuthStrategy],
+  providers: [AuthService, LocalAuthStrategy, JwtAuthStrategy, GoogleAuthStrategy, KakaoAuthStrategy, NaverAuthStrategy],
 })
 export class AuthModule {}
