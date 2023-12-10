@@ -8,6 +8,7 @@ import { TokenPayloadInterface } from './interfaces/tokenPayload.interface';
 import { EmailService } from 'src/email/email.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import { Cache } from 'cache-manager';
+import { Provider } from 'src/user/entities/provider.enum';
 
 
 
@@ -26,7 +27,10 @@ export class AuthService {
   //회원가입 비지니스 로직
   async createUser(createUserDto: CreateUserDto) {
     try {
-      return await this.userService.createUser(createUserDto);
+      return await this.userService.createUser({
+        ...createUserDto, 
+        provider : Provider.LOCAL
+      });
     } catch (e) {
       console.log(e);
       throw new HttpException(
