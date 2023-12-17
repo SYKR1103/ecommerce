@@ -41,13 +41,14 @@ export class MetaAuthStrategy extends PassportStrategy(
             const email = emails[0].value
             const nickname =name.familyName+ name.givenName 
             const provider = Provider.META
-           
+            console.log(email)
             try {
 
                 const user = await this.userService.findUserByEmail(email)
                 if (user.provider !== provider) {
                     console.log(user.provider, provider)
-                } throw new HttpException('xxx', HttpStatus.CONFLICT)
+                    throw new HttpException('xxx', HttpStatus.CONFLICT)
+                } 
 
                 done(null, user)
 

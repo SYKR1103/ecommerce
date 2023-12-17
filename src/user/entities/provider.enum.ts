@@ -8,7 +8,7 @@ export enum Provider {
     GOOGLE  = 'google',
     NAVER = 'naver',
     KAKAO = 'kakao',
-    META = 'meta'
+    META = 'facebook'
 
 
 }
