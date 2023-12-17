@@ -3,7 +3,7 @@ import { Entity, Column, BeforeInsert, OneToMany } from 'typeorm';
 import { Role } from './role.enum';
 import * as bcrypt from 'bcryptjs';
 import { InternalServerErrorException } from '@nestjs/common';
-import { Post } from 'src/post/entities/post.entity';
+import { PostEntity} from 'src/post/entities/post.entity';
 import { Provider } from './provider.enum';
 import * as gravartar from 'gravatar'
 import { Exclude } from 'class-transformer';
@@ -81,8 +81,8 @@ export class User extends BaseEntity {
     }
   }
 
-  @OneToMany(()=>Post, (post:Post)=> post.author)
-  public posts? : Post[]
+  @OneToMany(()=>PostEntity, (post:PostEntity)=> post.author)
+  public posts? : PostEntity[]
 
 
 

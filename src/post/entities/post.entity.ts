@@ -7,7 +7,7 @@ import { Entity, Column, ManyToOne } from "typeorm"
 
 
 @Entity()
-export class Post extends BaseEntity{
+export class PostEntity extends BaseEntity{
 
     @Column()
     public title : string;
