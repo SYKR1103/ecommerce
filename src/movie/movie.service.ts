@@ -5,6 +5,9 @@ import { Repository } from "typeorm";
 import { HttpService } from "@nestjs/axios";
 import { array } from "@hapi/joi";
 import { ConfigService } from "@nestjs/config";
+import { PageOptionDto } from "../common/dtos/page-options.dto";
+import { PageDto } from "../common/dtos/page.dto";
+import { PageMetaDto } from "../common/dtos/page-meta.dto";
 
 @Injectable()
 export class MovieService {
@@ -43,6 +46,39 @@ export class MovieService {
 
     }
   }
+
+
+  async getAllMovies(pageOptionDto: PageOptionDto) : Promise<PageDto<Movie>> {
+   // return await this.movieRepo.find()
+    const querybuilder = await this.movieRepo.createQueryBuilder('movie')
+
+    await querybuilder
+      .orderBy('movie.createdAt', pageOptionDto.order)
+      .skip(pageOptionDto.skip)
+      .take(pageOptionDto.take)
+
+
+    const itemCount = await querybuilder.getCount()
+    const {entities} = await querybuilder.getRawAndEntities()
+
+    const pageMetaDto = new PageMetaDto({itemCount, pageOptionDto})
+    return new PageDto(entities, pageMetaDto)
+
+
+
+
+
+
+
+
+
+
+  }
+
+
+
+
+
 
 
 
