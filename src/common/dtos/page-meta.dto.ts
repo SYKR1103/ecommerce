@@ -6,7 +6,6 @@ import { PageMetaDtoParametersInterface } from "src/auth/interfaces/page-meta-dt
 
 export class PageMetaDto {
 
-
     @ApiProperty()
     readonly page : number
 

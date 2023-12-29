@@ -28,14 +28,19 @@ export class PostService {
   }
 
   async getPosts(pageOptionDto:PageOptionDto) : Promise<PageDto<PostEntity>> {
-    const quereyBuilder = await this.postRepo.createQueryBuilder('post')
-    await quereyBuilder.orderBy('post.createdAt', pageOptionDto.order).skip(pageOptionDto.skip).take(pageOptionDto.take)
+    const quereyBuilder =
+      await this.postRepo.createQueryBuilder('post')
+    await quereyBuilder.
+    orderBy('post.createdAt', pageOptionDto.order).
+    skip(pageOptionDto.skip).
+    take(pageOptionDto.take)
 
     const itemCount = await quereyBuilder.getCount()
     const {entities} = await quereyBuilder.getRawAndEntities()
     
 
-    const pageMetaDto = new PageMetaDto({itemCount, pageOptionDto})
+    const pageMetaDto =
+      new PageMetaDto({itemCount, pageOptionDto})
     return new PageDto(entities, pageMetaDto)
 
   }

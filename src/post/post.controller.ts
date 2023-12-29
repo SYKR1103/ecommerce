@@ -14,7 +14,7 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   
-  @UseGuards(JwtAuthGuard) //로그인한 사람만 아래를 할 수 있게
+  @UseGuards(JwtAuthGuard)
   @Post()
   async createPost(@Req() req:RequestWithUser,
   @Body() CreatePostDto:CreatePostDto) { 

@@ -3,14 +3,10 @@ import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nes
 import { Observable } from "rxjs"
 import { map } from "rxjs/operators"
 
-
-
 export const Info = {
     statusCode : 200,
     message : 'ok',
 }
-
-
 
 export type Response<T> = typeof Info & {
     data : T
@@ -24,9 +20,7 @@ implements NestInterceptor<Text, Response<T>> {
         context: ExecutionContext, 
         next: CallHandler
         ): Observable<Response<T>> {
-
-            return next.handle().pipe(map((data)=> Object.assign({}, Info, {data})))
-        
+            return next.handle().pipe(map(
+              (data)=> Object.assign({}, Info, {data})))
     }
-
 }
