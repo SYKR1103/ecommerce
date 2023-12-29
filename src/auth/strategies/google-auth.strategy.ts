@@ -57,9 +57,6 @@ export class GoogleAuthStrategy extends PassportStrategy(
                     
                 }
 
-
-
-
                 done(null,user)
 
             } catch(e) {

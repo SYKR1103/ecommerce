@@ -14,7 +14,12 @@ services :
       # PostgreSQL 계정 및 패스워드 설정 옵션
       POSTGRES_USER: yeon
       POSTGRES_PASSWORD: didgksehd
-      
-    # 볼륨 설정
-    volumes:
-      - ./data/postgres/:/var/lib/postgresql/data
+
+
+   redis:
+     container_name: redis
+     image: "redis:alpine"
+     env_file:
+       - .env
+     ports:
+       - "6379:6379"
