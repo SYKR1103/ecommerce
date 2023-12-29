@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "@nestjs/axios": "^3.0.1",
     "@nestjs/cache-manager": "^2.1.1",
     "@nestjs/common": "^10.2.10",
     "@nestjs/config": "^3.1.1",
@@ -39,6 +40,7 @@
     "@types/passport-facebook": "^3.0.3",
     "@types/passport-jwt": "^3.0.13",
     "@types/passport-local": "^1.0.38",
+    "axios": "^1.6.3",
     "bcryptjs": "^2.4.3",
     "cache-manager": "^4.1.0",
     "cache-manager-redis-store": "^2.0.0",

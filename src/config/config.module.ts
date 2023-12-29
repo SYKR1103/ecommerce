@@ -42,6 +42,9 @@ import * as Joi from '@hapi/joi';
         META_AUTH_CLIENTID:Joi.string().required(),
         META_AUTH_CLIENT_SECRET :Joi.string().required(),
         META_AUTH_CALLBACK_URL :Joi.string().required(),
+        TMDB_URL: Joi.string().required(),
+        TMDB_KEY: Joi.string().required(),
+
 
         SERVER_PORT : Joi.number().required(),
 

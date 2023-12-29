@@ -9,6 +9,7 @@ import { AppConfigModule } from './config/config.module';
 import { PostModule } from './post/post.module';
 import { EmailModule } from './email/email.module';
 import { RedisModule } from './redis/redis.module';
+import { MovieModule } from './movie/movie.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { RedisModule } from './redis/redis.module';
     PostModule,
     EmailModule,
     RedisModule,
+    MovieModule,
   ],
   controllers: [AppController],
   providers: [AppService],
